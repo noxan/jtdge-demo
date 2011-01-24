@@ -9,19 +9,11 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.xml.sax.SAXException;
 
 import com.github.noxan.jtdge.core.Engine;
-import com.github.noxan.jtdge.core.factory.EngineFactory;
-import com.github.noxan.jtdge.display.DefaultEngineDisplay;
-import com.github.noxan.jtdge.display.EngineDisplay;
 import com.github.noxan.jtdge.display.event.EngineWindowAdapter;
 import com.github.noxan.jtdge.ewt.border.LineBorder;
 import com.github.noxan.jtdge.ewt.comp.EComponent;
 import com.github.noxan.jtdge.ewt.comp.EPanel;
 import com.github.noxan.jtdge.ewt.xml.EWTMLParser;
-import com.github.noxan.jtdge.input.DefaultEngineInput;
-import com.github.noxan.jtdge.input.EngineInput;
-import com.github.noxan.jtdge.pref.Version;
-import com.github.noxan.jtdge.thread.DefaultEngineThread;
-import com.github.noxan.jtdge.thread.EngineThread;
 
 public class EMLDemo1 extends Engine {
 	public static void main(String[] args) {
@@ -29,20 +21,7 @@ public class EMLDemo1 extends Engine {
 	}
 	
 	public EMLDemo1() {
-		super(new EngineFactory() {
-			@Override
-			public EngineThread createEngineThread() {
-				return new DefaultEngineThread((long)(1e9f/60));
-			}
-			@Override
-			public EngineInput createEngineInput() {
-				return new DefaultEngineInput(true);
-			}
-			@Override
-			public EngineDisplay createEngineDisplay() {
-				return new DefaultEngineDisplay("jtdge-eml@"+Version.getVersion(), 100, 50, 800, 600);
-			}
-		});
+		super("EMLDemo1", 640, 480, 30);
 		addEngineWindowListener(new EngineWindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent arg0) {

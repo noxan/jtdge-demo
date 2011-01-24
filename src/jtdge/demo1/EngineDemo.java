@@ -7,22 +7,15 @@ import java.util.List;
 import java.util.Random;
 
 import com.github.noxan.jtdge.core.Engine;
-import com.github.noxan.jtdge.core.factory.EngineFactory;
-import com.github.noxan.jtdge.display.DefaultEngineDisplay;
-import com.github.noxan.jtdge.display.EngineDisplay;
 import com.github.noxan.jtdge.display.event.EngineWindowAdapter;
 import com.github.noxan.jtdge.entity.Entity;
 import com.github.noxan.jtdge.ewt.comp.EButton;
 import com.github.noxan.jtdge.ewt.comp.ELabel;
 import com.github.noxan.jtdge.ewt.event.ActionEvent;
 import com.github.noxan.jtdge.ewt.event.ActionListener;
-import com.github.noxan.jtdge.input.DefaultEngineInput;
-import com.github.noxan.jtdge.input.EngineInput;
 import com.github.noxan.jtdge.input.event.EngineKeyAdapter;
 import com.github.noxan.jtdge.input.event.EngineKeyEvent;
 import com.github.noxan.jtdge.pref.Version;
-import com.github.noxan.jtdge.thread.DefaultEngineThread;
-import com.github.noxan.jtdge.thread.EngineThread;
 
 
 public class EngineDemo extends Engine {
@@ -39,23 +32,9 @@ public class EngineDemo extends Engine {
 	private EButton removeButton;
 	
 	public EngineDemo() {
-		super(new EngineFactory() {
-			@Override
-			public EngineThread createEngineThread() {
-				return new DefaultEngineThread((long)(1e9f/60));
-			}
-			@Override
-			public EngineInput createEngineInput() {
-				return new DefaultEngineInput(true);
-			}
-			@Override
-			public EngineDisplay createEngineDisplay() {
-				return new DefaultEngineDisplay("jtdge-ball@"+Version.getVersion(), 100, 50, 800, 600);
-			}
-		});
+		super("jtdge-ball@"+Version.getVersion(), 100, 50, 800, 600, 60.f);
 		addEngineWindowListener(new EngineWindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
+			@Override public void windowClosing(WindowEvent e) {
 				stop();
 			}
 		});
@@ -128,8 +107,7 @@ public class EngineDemo extends Engine {
 	@Override
 	public void update(long delta) {
 		super.update(delta);
-		
-		fpsLabel.setText(""+getEngineThread().getFps()+"fps");
+		fpsLabel.setText(getEngineThread().getFps()+"fps");
 	}
 	
 	private void updateCountLabel() {

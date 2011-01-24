@@ -12,14 +12,15 @@ public class DemoEntity extends AbstractMovableEntity<EngineDemo> {
 	public static final Random rnd = new Random();
 	
 	public DemoEntity(int x, int y, float dx, float dy, int rad) {
-		super(new DrawTexture(rad, rad) {
+		super(x, y, dx, dy);
+		setAppearance(new DrawTexture(rad, rad) {
 			public Color color = new Color(rnd.nextInt(255), rnd.nextInt(255), rnd.nextInt(255));
 			@Override
 			public void draw(Graphics2D g2) {
 				g2.setColor(color);
 				g2.fillOval(0, 0, (int)getWidth(), (int)getHeight());
 			}
-		}, x, y, dx, dy);
+		});
 	}
 	
 	@Override
