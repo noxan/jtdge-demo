@@ -1,0 +1,7 @@
+<?eml version="0.1" encoding="utf8" ?>
+<EPanel x="5" y="5">
+	<EButton x="10" y="10" text="Button1"/>
+	<EButton x="10" y="40" text="Button2"/>
+	<EButton x="10" y="70" text="Button3"/>
+	<EButton x="10" y="100" text="Button4"/>
+</EPanel>
