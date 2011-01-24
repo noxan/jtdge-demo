@@ -14,11 +14,8 @@ import com.github.noxan.jtdge.display.DefaultEngineDisplay;
 import com.github.noxan.jtdge.display.EngineDisplay;
 import com.github.noxan.jtdge.display.event.EngineWindowAdapter;
 import com.github.noxan.jtdge.ewt.border.LineBorder;
-import com.github.noxan.jtdge.ewt.comp.EButton;
 import com.github.noxan.jtdge.ewt.comp.EComponent;
 import com.github.noxan.jtdge.ewt.comp.EPanel;
-import com.github.noxan.jtdge.ewt.event.ActionEvent;
-import com.github.noxan.jtdge.ewt.event.ActionListener;
 import com.github.noxan.jtdge.ewt.xml.EWTMLParser;
 import com.github.noxan.jtdge.input.DefaultEngineInput;
 import com.github.noxan.jtdge.input.EngineInput;
@@ -30,8 +27,6 @@ public class EMLDemo1 extends Engine {
 	public static void main(String[] args) {
 		new EMLDemo1().start();
 	}
-	
-	private int buttonCount = 0;
 	
 	public EMLDemo1() {
 		super(new EngineFactory() {
@@ -55,47 +50,17 @@ public class EMLDemo1 extends Engine {
 			}
 		});
 		
-		EPanel panel = new EPanel(200, 200, 400, 200);
-		panel.setBorder(new LineBorder(Color.RED));
-		panel.setBackground(new Color(50, 50, 75));
-		panel.add(new EDemoButton(10, 10));
-		panel.add(new EDemoButton(10, 40));
-		panel.add(new EDemoButton(100, 70));
-		panel.add(new EDemoButton(100, 100));
-		EButton exitButton = new EButton("Exit", 295, 170);
-		exitButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				stop();
-			}
-		});
-		panel.add(exitButton);
-		
 		try {
-			@SuppressWarnings("unused")
-			EComponent component = EWTMLParser.load("data/sample1.eml");
+			EPanel root = new EPanel(0, 0);
+			root.setBorder(new LineBorder(Color.RED));
+			EComponent component = EWTMLParser.load(root, "data/sample1.eml");
+			getStage().addComponent(component);
 		} catch(ParserConfigurationException ex) {
 			ex.printStackTrace();
 		} catch(SAXException ex) {
 			ex.printStackTrace();
 		} catch(IOException ex) {
 			ex.printStackTrace();
-		}
-		
-		getStage().addComponent(panel);
-		
-		
-	}
-	
-	private class EDemoButton extends EButton {
-		public EDemoButton(int x, int y) {
-			super("Demo"+buttonCount++, x, y);
-			addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					System.out.println("button["+getText()+"] pressed.");
-				}
-			});
 		}
 	}
 }
